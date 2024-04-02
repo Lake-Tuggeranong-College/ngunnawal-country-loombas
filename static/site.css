@@ -1,0 +1,19 @@
+body {
+    background-color: darkkhaki;
+}
+
+.mycss {
+    color: rgb(110, 43, 43);
+}
+
+.navbar a {
+    font-size: 1em;
+    color: white;
+    text-align: center;
+    padding: 1em 1em;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    background-color: #2ccbb4;
+}
