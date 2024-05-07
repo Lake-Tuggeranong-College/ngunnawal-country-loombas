@@ -14,20 +14,20 @@ from models import Contact, User
 
 @app.route('/')
 def homepage():  # put application's code here
-    return render_template("index.html", title="Homepage")
+    return render_template("index.html", title="Homepage", user=current_user)
 
 @app.route('/gallery')
 def gallery():  # put application's code here
-    return render_template("gallery.html", title="Photo Gallery")
+    return render_template("gallery.html", title="Photo Gallery", user=current_user)
 
 
 @app.route('/history')
 def history():  # put application's code here
-    return render_template("history.html", title="History of Ngunnawal")
+    return render_template("history.html", title="History of Ngunnawal", user=current_user)
 
 @app.route('/grid')
 def grid():  # put application's code here
-    return render_template("grid.html", title="Bootstrap Grid")
+    return render_template("grid.html", title="Bootstrap Grid", user=current_user)
 
 @app.route("/contactus", methods=["POST", "GET"])
 def contact():
@@ -49,7 +49,7 @@ def register():
         db.session.add(new_user)
         db.session.commit()
         return redirect(url_for("homepage"))
-    return render_template("registration.html", title="User Registration", form=form)
+    return render_template("registration.html", title="User Registration", form=form, user=current_user)
 
 
 @app.route('/login', methods=["POST", "GET"])
@@ -65,10 +65,9 @@ def login():
             return redirect(url_for("homepage"))
         else:
             print("DEBUG: Login Failed")
-            # Username or password incorrect
+            flash ("Login failed.")
             return redirect(url_for("login"))
-    return render_template("login.html", title="Login", form=form)
-
+    return render_template("login.html", title="Login", form=form, user=current_user) 
 @app.route('/passwordreset', methods=['GET', 'POST'])
 @login_required
 def reset_password():
@@ -85,5 +84,16 @@ def reset_password():
 def logout():
     logout_user()
     return redirect(url_for("homepage"))
+
+# Error Handlers
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template("404.html", user=current_user), 404
+
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    return render_template("500.html", user=current_user), 500
+
 if __name__ == '__main__':
     app.run() 
