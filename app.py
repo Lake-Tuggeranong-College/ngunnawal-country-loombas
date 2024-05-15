@@ -95,5 +95,12 @@ def page_not_found(e):
 def internal_server_error(e):
     return render_template("500.html", user=current_user), 500
 
+@app.route('/contact_messages')
+@login_required
+def view_contact_messages():
+    contact_messages = Contact.query.all()
+    return render_template("contactMessages.html", title="Contact Messages", user=current_user, messages=contact_messages)
+
+
 if __name__ == '__main__':
     app.run() 

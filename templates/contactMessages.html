@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block rowTwoColTwoContent %}
+<div class="container-fluid">
+    {% for message in messages %}
+      <div class="row">
+        <div class="col-3"> {{ message.name }}</div>
+        <div class="col-3"> {{ message.email }}</div>
+        <div class="col-3"> {{ message.message }}</div>
+        <div class="col-3"> {{ message.dateSubmitted }}</div>
+      </div>
+    <div class="row">
+
+
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block rowThreeContent %}
+
+  <div class="footerText">Copyright 2024.</div>
+{% endblock %}
